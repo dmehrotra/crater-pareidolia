@@ -1,6 +1,4 @@
-#main {
-  margin-top: 50px;
-}
+html, body, #main{padding:0px;margin:0px; height:100%; width:100%;}
 
 .frame {
   position: relative;  
@@ -15,4 +13,17 @@
 
 .frame a:hover {
   background: rgba(0,0,0,0.5);
+}
+
+#map {
+height: 100%;
+width:50%;
+float:right;
+}
+#intro{
+	box-sizing:border-box;
+	height: 50%;
+	width:50%;
+	float:left;
+	padding:25px;
 }

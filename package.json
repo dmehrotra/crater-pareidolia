@@ -1,5 +1,5 @@
 {
-  "name": "Crater Pareidolia",
+  "name": "CraterPareidolia",
   "version": "1.0.0",
   "description": "Searching for faces in craters left from Atomic Bomb Testing",
   "main": "index.js",
@@ -12,8 +12,10 @@
     "easyimage": "^2.0.3",
     "express": "^4.13.3",
     "express-handlebars": "^2.0.1",
+    "locus": "^1.2.0",
     "lodash": "^3.10.1",
     "multer": "^1.0.3",
-    "opencv": "^5.0.0"
+    "opencv": "^5.0.0",
+    "webshot": "^0.18.0"
   }
 }

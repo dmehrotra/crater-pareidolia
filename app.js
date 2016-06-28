@@ -6,8 +6,8 @@ var multer    =   require( 'multer' )
 var upload     =    multer( { dest: 'uploads/' } )
 var exphbs    =   require( 'express-handlebars' )
 var easyimg   =    require( 'easyimage' )
-var _         =    require( 'lodash' )
 var cv         =   require( 'opencv' );
+var webshot   = require('webshot');
 
 
 var exts = {
@@ -54,14 +54,14 @@ app.post('/upload', upload.single('file'), function(req, res, next){
         cv.readImage( dst, callback );
       },
       function( im, callback ) {
-
-        im.detectObject( cv.FACE_CASCADE, {}, callback );
+        
+        im.detectObject( "./node_modules/opencv/data/haarcascade_frontalface_default.xml", {}, callback );
 
       }
 
     ],
     function( err, faces ) {
-
+      
       if ( err ) {
 
         return res.render(
@@ -72,9 +72,7 @@ app.post('/upload', upload.single('file'), function(req, res, next){
         );
       }
 
-      /**
-       * We're all good; render the result page.
-       */
+     
       return res.render(
         'result',
         {
@@ -91,6 +89,8 @@ app.post('/upload', upload.single('file'), function(req, res, next){
 /**
  * Start the server
  */
+
+
 http.createServer(
   app
 ).listen( port, function( server ) {
