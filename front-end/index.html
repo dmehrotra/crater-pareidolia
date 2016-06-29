@@ -23,7 +23,8 @@
         </div>
       
       </div>
-      <div id="map"></div>
+      <div id="right"><div id="map"></div></div>
+      
       <script>
         var map;
         var s = true
@@ -31,15 +32,13 @@
         var idleTime;
         var idle = true;
         setInterval(function(){
-           checkIdle();
+          checkIdle()
         }, 1000)
 
         function checkIdle(){
           console.log('checking idle')
           idleTime = idleTime + 1;
-          
           if (!idle && idleTime >= 10){
-            console.log('restarting recenter')
             to = setInterval(function(){recenter(bounds)}, 6000)
             idle = true;
           }
@@ -48,26 +47,21 @@
         function init() {
           map = new google.maps.Map(document.getElementById('map'), {
             zoom: 13,
-            center: {lat: 37.1101529, lng: -116.0593457},
+            center: {lat: 37.1366728, lng: -116.0577398},
             mapTypeId: google.maps.MapTypeId.SATELLITE
           });
-
 
           google.maps.event.addListenerOnce(map, 'idle', function(){
               bounds = getBounds();
               to = setInterval(function(){recenter(bounds)}, 6000)
           });
           map.addListener('click', function() {
-               
                  clearInterval(to)
                  idleTime = 0;
                  idle = false;
-                 
           });
           google.maps.event.addListener(map, "tilesloaded", function() { 
                     setTimeout(takeImage, 3000)
-                    
-           
           }); 
         }
         function getBounds(){
@@ -127,7 +121,7 @@
           function searchForFaces(){
               var img = document.getElementById('faces');
               var tracker = new tracking.ObjectTracker(['face', 'eye', 'mouth']);
-              tracker.setStepSize(1);
+              tracker.setStepSize(1.3);
               console.log('working')
               tracking.track('#faces', tracker);
               tracker.on('track', function(event) {
