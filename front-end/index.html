@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="./css/styles.css">
+  <script src="./js/tracking-min.js"></script>
+  <script src="./js/face-min.js"></script>
+  <script src="./js/eye-min.js"></script>
+  <script src="./js/mouth-min.js"></script>
+  <script src="./js/html2canvas.min.js"></script>
+  </head>
+  <body>
+
+
+
+    <div id="main" class="container">
+      <div id="left">
+        <p>The Nevada National Security Site[1] (NNSS), previously the Nevada Test Site (NTS), is a United States Department of Energy reservation located in southeastern Nye County, Nevada, about 65 miles (105 km) northwest of the city of Las Vegas. Formerly known as the Nevada Proving Grounds,[2] the site was established on 11 January 1951 for the testing of nuclear devices, covering approximately 1,360 square miles (3,500 km2) of desert and mountainous terrain.
+        </p>
+        <div class="fc">
+            <img id='faces' src="" alt="">
+        </div>
+      
+      </div>
+      <div id="map"></div>
+      <script>
+        var map;
+        var s = true
+        var to;
+        var idleTime;
+        var idle = true;
+        setInterval(function(){
+           checkIdle();
+        }, 1000)
+
+        function checkIdle(){
+          console.log('checking idle')
+          idleTime = idleTime + 1;
+          
+          if (!idle && idleTime >= 10){
+            console.log('restarting recenter')
+            to = setInterval(function(){recenter(bounds)}, 6000)
+            idle = true;
+          }
+        }
+
+        function init() {
+          map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 13,
+            center: {lat: 37.1101529, lng: -116.0593457},
+            mapTypeId: google.maps.MapTypeId.SATELLITE
+          });
+
+
+          google.maps.event.addListenerOnce(map, 'idle', function(){
+              bounds = getBounds();
+              to = setInterval(function(){recenter(bounds)}, 6000)
+          });
+          map.addListener('click', function() {
+               
+                 clearInterval(to)
+                 idleTime = 0;
+                 idle = false;
+                 
+          });
+          google.maps.event.addListener(map, "tilesloaded", function() { 
+                    setTimeout(takeImage, 3000)
+                    
+           
+          }); 
+        }
+        function getBounds(){
+          return {
+            "lat_min": map.getBounds().getSouthWest().lat(),
+            "lat_range": map.getBounds().getNorthEast().lat() - map.getBounds().getSouthWest().lat(),
+            "lng_min": map.getBounds().getSouthWest().lng(),
+            "lng_range": map.getBounds().getNorthEast().lng() - map.getBounds().getSouthWest().lng()
+          }
+        }
+        function recenter(m) {
+          idle = true;
+          s = !s;
+          if (s){
+          
+            map.setCenter( new google.maps.LatLng(m.lat_min + (Math.random() * m.lat_range), 
+                                    m.lng_min + (Math.random() * m.lng_range)))
+            map.setZoom(17);
+          }else{
+            map.setCenter(new google.maps.LatLng(m.lat_min + (Math.random() * m.lat_range), 
+                                m.lng_min + (Math.random() * m.lng_range)))
+            map.setZoom(15);
+          }
+
+        }
+          function takeImage() {
+             
+              var transform=$(".gm-style>div:first>div").css("transform")
+              var comp=transform.split(",") //split up the transform matrix
+              var mapleft=parseFloat(comp[4]) //get left value
+              var maptop=parseFloat(comp[5])  //get top value
+              $(".gm-style>div:first>div").css({ //get the map container. not sure if stable
+                "transform":"none",
+                "left":mapleft,
+                "top":maptop,
+              })
+              html2canvas($('#map'),
+              {
+                useCORS: true,
+                onrendered: function(canvas)
+                {
+                 
+                  var src = canvas.toDataURL("image/png")
+                  removeElementsByClass("rect")
+                  document.getElementById("faces").src = src
+                  $(".gm-style>div:first>div").css({
+                    left:0,
+                    top:0,
+                    "transform":transform
+                  })
+                  searchForFaces();
+                }
+              });
+
+          
+          }
+          function searchForFaces(){
+              var img = document.getElementById('faces');
+              var tracker = new tracking.ObjectTracker(['face', 'eye', 'mouth']);
+              tracker.setStepSize(1);
+              console.log('working')
+              tracking.track('#faces', tracker);
+              tracker.on('track', function(event) {
+                
+                event.data.forEach(function(rect) {
+                  console.log(rect)
+                  window.plot(rect.x, rect.y, rect.width, rect.height);
+                })
+              })
+              window.plot = function(x, y, w, h) {
+                var rect = document.createElement('div');
+                document.querySelector('.fc').appendChild(rect);
+                rect.classList.add('rect');
+                rect.style.width = w + 'px';
+                rect.style.height = h + 'px';
+                rect.style.left = (img.offsetLeft + x) + 'px';
+                rect.style.top = (img.offsetTop + y) + 'px';
+              }
+          }
+          function removeElementsByClass(className){
+            var elements = document.getElementsByClassName(className);
+            while(elements.length > 0){
+                elements[0].parentNode.removeChild(elements[0]);
+            }
+          }
+      </script>
+      <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsYKGxW1tT39r89OGt_FGND4J07eHLGOw&callback=init"></script>
+    </div>
+  </body>
+</html>

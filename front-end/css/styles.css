@@ -1,0 +1,39 @@
+html, body, #main{padding:0px;margin:0px; height:100%; width:100%;}
+
+.frame {
+  position: relative;  
+}
+
+.frame a {
+  display: block;
+  position: absolute;
+  border: solid 2px #fff;
+  border-radius: 50%;
+}
+
+.frame a:hover {
+  background: rgba(0,0,0,0.5);
+}
+
+#map {
+height: 100%;
+width:50%;
+float:right;
+}
+#left{
+	box-sizing:border-box;
+	height: 100%;
+	width:50%;
+	float:left;
+	padding:25px;
+}
+#faces{
+  box-sizing:border-box;
+  max-width:100%;
+}
+.rect {
+  border: 2px solid #a64ceb;
+  left: -1000px;
+  position: absolute;
+  top: -1000px;
+}
