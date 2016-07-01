@@ -18,7 +18,8 @@ function init() {
 
   google.maps.event.addListenerOnce(map, 'idle', function(){
       bounds = getBounds();
-      to = setInterval(function(){recenter(bounds)}, 9000)
+      to = setInterval(function(){recenter(bounds)}, 7000)
+      drawLoop();
   });
   google.maps.event.addListener(map, "tilesloaded", function() { 
             takeImage()

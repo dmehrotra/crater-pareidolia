@@ -1,3 +1,4 @@
+
 function takeImage() {        
   var transform=$(".gm-style>div:first>div").css("transform")
   var comp=transform.split(",") //split up the transform matrix
@@ -13,10 +14,13 @@ function takeImage() {
     useCORS: true,
     onrendered: function(canvas)
     {
-     
+      
+      var img = new Image()
       var src = canvas.toDataURL("image/png")
-      removeElementsByClass("rect")
-      document.getElementById("faces").src = src
+      img.src = src
+      cc.drawImage(img,0,0,img.width*.45,img.height*.45);
+      
+
       searchForFaces(src);
       $(".gm-style>div:first>div").css({
         left:0,

@@ -5,10 +5,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js">
     </script>
     <link rel="stylesheet" href="./css/styles.css">
-    <script src="./js/util/tracking.js"></script>
-    <script src="./js/util/face-min.js"></script>
-    <script src="./js/util/eye-min.js"></script>
-    <script src="./js/util/mouth-min.js"></script>
+    <script src="./js/util/trckr.js"></script>
+    <script src="./js/util/model_pca_20_svm.js"></script>
     <script src="./js/util/html2canvas.min.js"></script>
     <script src="./js/faces.js"></script>
     <script src="./js/helpers.js"></script>
@@ -27,18 +25,27 @@
  
 
         <div class="fc">
-            <img id='faces' src="" alt="">
+            <canvas id="image"></canvas>
+            <canvas id="overlay"  ></canvas>
         </div>
       
       </div>
       <div id="right">
         <div id="map-moveable"></div>
+       
       </div>
-      
-      <script>
 
-    
-         
+      <script>
+      var cc = document.getElementById('image').getContext('2d');
+      var overlay = document.getElementById('overlay');
+      var overlayCC = overlay.getContext('2d');
+      var ctrack = new clm.tracker({stopOnConvergence : true});
+      var drawRequest;
+        
+      ctrack.init(pModel);  
+      
+ 
+   
       </script>
       <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsYKGxW1tT39r89OGt_FGND4J07eHLGOw&callback=init"></script>
