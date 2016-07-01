@@ -1,11 +1,14 @@
-function searchForFaces(){
+function searchForFaces(src){
+  console.log('searching')
   var img = document.getElementById('faces');
-  var tracker = new tracking.ObjectTracker(['face', 'eye', 'mouth']);
-  tracker.setStepSize(1.3);
+  var tracker = new tracking.ObjectTracker(['face','mouth','eye']);
+  tracker.setStepSize(1.4);
   console.log('working')
   tracking.track('#faces', tracker);
   tracker.on('track', function(event) {
     
+    // removeElementsByClass("rect")
+    // document.getElementById("faces").src = src
     event.data.forEach(function(rect) {
       console.log(rect)
       window.plot(rect.x, rect.y, rect.width, rect.height);

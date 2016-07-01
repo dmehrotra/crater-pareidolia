@@ -17,12 +17,13 @@ function takeImage() {
       var src = canvas.toDataURL("image/png")
       removeElementsByClass("rect")
       document.getElementById("faces").src = src
+      searchForFaces(src);
       $(".gm-style>div:first>div").css({
         left:0,
         top:0,
         "transform":transform
       })
-      searchForFaces();
+
     }
   });
  }

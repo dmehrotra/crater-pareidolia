@@ -16,7 +16,7 @@ html, body, #main{padding:0px;margin:0px; height:100%; width:100%;}
 }
 
 #map {
-height: 100%;
+height: 50%;
 width:100%;
 
 }
@@ -25,14 +25,30 @@ width:100%;
 	height: 100%;
 	width:50%;
 	float:left;
-	padding:25px;
+	padding:10px;
+  position:relative;
+}
+.fc{
+  margin-top:15px;
 }
 #right{
   box-sizing:border-box;
   height: 100%;
   width:50%;
   float:right;
+  padding:10px;
+}
+#map-moveable{
+  width:100%;
+  height:100%;
+}
+.content{
+  box-sizing:border-box;
+  background:white;
+  position:absolute;
   padding:25px;
+  top:20px;
+  opacity:.6;
 }
 #faces{
   box-sizing:border-box;

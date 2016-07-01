@@ -10,13 +10,18 @@ function init() {
     mapTypeId: google.maps.MapTypeId.SATELLITE,
     disableDefaultUI: true
   });
+  mapMoveable = new google.maps.Map(document.getElementById('map-moveable'), {
+    zoom: 13,
+    center: {lat: 37.1366728, lng: -116.0577398},
+    mapTypeId: google.maps.MapTypeId.SATELLITE,
+  });
 
   google.maps.event.addListenerOnce(map, 'idle', function(){
       bounds = getBounds();
-      to = setInterval(function(){recenter(bounds)}, 6000)
+      to = setInterval(function(){recenter(bounds)}, 9000)
   });
   google.maps.event.addListener(map, "tilesloaded", function() { 
-            setTimeout(takeImage, 3000)
+            takeImage()
   }); 
 }
 function getBounds(){
@@ -32,7 +37,7 @@ function recenter(m) {
   if (s){
     map.setCenter( new google.maps.LatLng(m.lat_min + (Math.random() * m.lat_range), 
                             m.lng_min + (Math.random() * m.lng_range)))
-    map.setZoom(17);
+    map.setZoom(16);
   }else{
     map.setCenter(new google.maps.LatLng(m.lat_min + (Math.random() * m.lat_range), 
                         m.lng_min + (Math.random() * m.lng_range)))
