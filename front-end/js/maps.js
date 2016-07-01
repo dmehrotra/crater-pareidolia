@@ -18,10 +18,11 @@ function init() {
 
   google.maps.event.addListenerOnce(map, 'idle', function(){
       bounds = getBounds();
-      to = setInterval(function(){recenter(bounds)}, 7000)
+      to = setInterval(function(){recenter(bounds)}, 5000)
       drawLoop();
   });
   google.maps.event.addListener(map, "tilesloaded", function() { 
+            overlayCC.clearRect(0, 0, 720, 576);
             takeImage()
   }); 
 }

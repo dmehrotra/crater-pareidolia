@@ -1,5 +1,6 @@
 
 function takeImage() {        
+   overlayCC.clearRect(0, 0, 720, 576);
   var transform=$(".gm-style>div:first>div").css("transform")
   var comp=transform.split(",") //split up the transform matrix
   var mapleft=parseFloat(comp[4]) //get left value
@@ -18,7 +19,7 @@ function takeImage() {
       var img = new Image()
       var src = canvas.toDataURL("image/png")
       img.src = src
-      cc.drawImage(img,0,0,img.width*.45,img.height*.45);
+      cc.drawImage(img,0,0);
       
 
       searchForFaces(src);

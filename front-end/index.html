@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js">
     </script>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="./css/styles.css">
     <script src="./js/util/trckr.js"></script>
     <script src="./js/util/model_pca_20_svm.js"></script>
@@ -18,37 +19,38 @@
       <div id="left">
         <div id="map"></div>
         <div class="content">
+        
+          <h2>crater pareidolia</h2>
+          <p class='lil'>explore the map to your left while your browser searches for faces.</p>
           <p>
-            The Nevada National Security Site (NNSS), previously the Nevada Test Site (NTS), is a United States Department of Energy reservation located in southeastern Nye County, Nevada, about 65 miles (105 km) northwest of the city of Las Vegas. Formerly known as the Nevada Proving Grounds,[2] the site was established on 11 January 1951 for the testing of nuclear devices, covering approximately 1,360 square miles (3,500 km2) of desert and mountainous terrain.
+            The Nevada National Security Site (NNSS), previously the Nevada Test Site (NTS), is a United States Department of Energy reservation located in southeastern Nye County, Nevada, about 65 miles northwest of the city of Las Vegas. Formerly known as the Nevada Proving Grounds, the site was established on 11 January 1951 for the testing of nuclear devices, covering approximately 1,360 square miles of desert and mountainous terrain. 928 announced nuclear tests occurred here.
           </p>
-        </div>
+          <p>Pareidolia (/pærᵻˈdoʊliə/ parr-i-doh-lee-ə) is a psychological phenomenon involving a stimulus (an image or a sound) wherein the mind perceives a familiar pattern of something where none actually exists.</p>
+      </div>
  
 
         <div class="fc">
             <canvas id="image"></canvas>
             <canvas id="overlay"  ></canvas>
         </div>
-      
-      </div>
-      <div id="right">
-        <div id="map-moveable"></div>
-       
-      </div>
-
-      <script>
-      var cc = document.getElementById('image').getContext('2d');
-      var overlay = document.getElementById('overlay');
-      var overlayCC = overlay.getContext('2d');
-      var ctrack = new clm.tracker({stopOnConvergence : true});
-      var drawRequest;
-        
-      ctrack.init(pModel);  
-      
- 
-   
-      </script>
-      <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsYKGxW1tT39r89OGt_FGND4J07eHLGOw&callback=init"></script>
     </div>
+    <div id="right">
+      <p class='info-box'>Explore The Nevada National Security Site Below </p>
+      <div id="map-moveable"></div>
+    </div>
+    <div stye="clear:both"></div>
+  </div>
+  <script>
+    var cc = document.getElementById('image').getContext('2d');
+    var overlay = document.getElementById('overlay');
+    var overlayCC = overlay.getContext('2d');
+    var ctrack = new clm.tracker({stopOnConvergence : true});
+    var drawRequest;
+      
+    ctrack.init(pModel);  
+  </script>
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsYKGxW1tT39r89OGt_FGND4J07eHLGOw&callback=init"></script>
+
   </body>
 </html>
